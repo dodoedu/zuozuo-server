@@ -8,6 +8,9 @@ class Course(models.Model):
     description = models.TextField()
     school = models.ForeignKey('schools.School', related_name="courses", null=True)
 
+    def __str__(self):
+        return self.title
+
     @classmethod
     def create(cls, **kwargs):
         """Class method responsible for creating and saving a Course object in database"""
