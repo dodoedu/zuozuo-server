@@ -6,7 +6,7 @@ class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    school = models.ForeignKey('schools.School', related_name="courses", null=True)
+    # school = models.ForeignKey('users.School', related_name="courses", null=True)
 
     def __str__(self):
         return self.title
