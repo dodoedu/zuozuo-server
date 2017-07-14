@@ -1,18 +1,27 @@
-from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 
+class UserManager(BaseUserManager):
+    def create_user(self, **kwargs):
+        user = self.model(**kwargs)
+        user.set_password(kwargs["password"])
+        user.save()
+        print("CREATING USER")
+        return user
+
+
 class User(AbstractUser):
     """Base user class, inheritances from default django user class"""
+    # objects = UserManager()
 
 
 
 
 class Student(models.Model):
     """Student relation table which relates to the actual student user"""
-    user = models.OneToOneField(User, related_name="student")
-
+    user = models.OneToOneField('users.User', related_name="student")
 
 class Teacher(models.Model):
     """Teacher relation table which relates to the actual teacher user"""
