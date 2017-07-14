@@ -5,7 +5,8 @@ from django.db import models
 
 class User(AbstractUser):
     """Base user class, inheritances from default django user class"""
-    pass
+
+
 
 
 class Student(models.Model):
@@ -44,3 +45,4 @@ class School(models.Model):
                            Permission.objects.get_or_create(codename="can_manage_students", content_type=student_content),
                            Permission.objects.get_or_create(codename="can_manage_teachers", content_type=teacher_content)]
             group.permissions.add(permissions)
+
