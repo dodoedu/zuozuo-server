@@ -8,4 +8,11 @@ urlpatterns = [
             "post": "create"
         }),
         name="student_list"),
+    url(r'^teacher/$',
+        views.ListCreateTeacher.as_view(),
+        name="teacher_list"),
+    url(r"^school/$",
+        views.ListCreateSchool.as_view(),
+        name="school_list")
+
 ]

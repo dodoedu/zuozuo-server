@@ -18,6 +18,7 @@ class StudentSerializer(serializers.ModelSerializer):
         # Add user to group
         group, _ = Group.objects.get_or_create(name="student")
         group.user_set.add(user)
+        # FIXME: The flowing line may not needed
         models.Student(user=user).save()
         # TODO: Add student user permission
         return user
@@ -28,12 +29,34 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class TeacherSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        data = validated_data
+        data.pop("groups")
+        data.pop("user_permissions")
+        user = models.User.objects.create_user(**data)
+        group, _ = Group.objects.get_or_create(name="teacher")
+        group.user_set.add(user)
+        # FIXME: The flowing line may not needed
+        models.Teacher(user=user).save()
+        return user
+
     class Meta:
         model = models.User
         fields = "__all__"
 
 
 class SchoolSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        data = validated_data
+        data.pop("groups")
+        data.pop("user_permissions")
+        user = models.User.objects.create_user(**data)
+        group, _ = Group.objects.get_or_create(name="school")
+        group.user_set.add(user)
+        # FIXME: The flowing line may not needed
+        models.School(user=user).save()
+        return user
+
     class Meta:
         model = models.User
         fields = "__all__"
