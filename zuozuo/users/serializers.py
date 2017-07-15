@@ -4,7 +4,6 @@ from . import models
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    id = serializers.ReadOnlyField()
 
     def create(self, validated_data):
         """
