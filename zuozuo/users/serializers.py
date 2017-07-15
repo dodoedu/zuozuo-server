@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from rest_framework import serializers
 from . import models
 
@@ -14,7 +15,11 @@ class StudentSerializer(serializers.ModelSerializer):
         data.pop("groups")
         data.pop("user_permissions")
         user = models.User.objects.create_user(**data)
+        # Add user to group
+        group, _ = Group.objects.get_or_create(name="student")
+        group.user_set.add(user)
         models.Student(user=user).save()
+        # TODO: Add student user permission
         return user
 
     class Meta:

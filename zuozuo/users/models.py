@@ -8,7 +8,6 @@ class UserManager(BaseUserManager):
         user = self.model(**kwargs)
         user.set_password(kwargs["password"])
         user.save()
-        print("CREATING USER")
         return user
 
 
@@ -17,11 +16,10 @@ class User(AbstractUser):
     # objects = UserManager()
 
 
-
-
 class Student(models.Model):
     """Student relation table which relates to the actual student user"""
     user = models.OneToOneField('users.User', related_name="student")
+
 
 class Teacher(models.Model):
     """Teacher relation table which relates to the actual teacher user"""
